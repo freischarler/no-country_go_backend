@@ -11,7 +11,7 @@ import (
 
 func main() {
 	//port := os.Getenv("PORT")
-	serv, err := server.New("8080") //hardcoded
+	serv, err := server.New(os.Getenv("PORT")) //hardcoded
 	if err != nil {
 		log.Fatal(err)
 	}
