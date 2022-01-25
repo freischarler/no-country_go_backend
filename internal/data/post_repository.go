@@ -18,7 +18,7 @@ type PostRepository struct {
 // GetAll returns all posts.
 func (pr *PostRepository) GetAll(ctx context.Context) ([]post.Post, error) {
 	q := `
-	SELECT recipe_name, recipe_type, user_id , ingredients, description, thumbnail, likes, created_at, updated_at
+	SELECT id, recipe_name, recipe_type, user_id , ingredients, description, thumbnail, likes, created_at, updated_at
 		FROM posts;
 	`
 
@@ -34,7 +34,7 @@ func (pr *PostRepository) GetAll(ctx context.Context) ([]post.Post, error) {
 		var p post.Post
 		var array_ingredients, array_description string
 
-		rows.Scan(&p.Recipe_name, &p.Recipe_type, &p.UserID, &array_ingredients, &array_description, &p.Thumbnail, &p.Likes, &p.CreatedAt, &p.UpdatedAt)
+		rows.Scan(&p.ID, &p.Recipe_name, &p.Recipe_type, &p.UserID, &array_ingredients, &array_description, &p.Thumbnail, &p.Likes, &p.CreatedAt, &p.UpdatedAt)
 
 		p.Ingredients = strings.Split(array_ingredients, "$$$")
 		p.Description = strings.Split(array_description, "$$$")
@@ -103,7 +103,7 @@ func (pr *PostRepository) GetByUser(ctx context.Context, userID uint) ([]post.Po
 // GetByUser returns all user posts.
 func (pr *PostRepository) GetByType(ctx context.Context, recipeTYPE string) ([]post.Post, error) {
 	q := `
-	SELECT recipe_name, recipe_type, user_id , ingredients, description, thumbnail, likes, created_at, updated_at
+	SELECT id, recipe_name, recipe_type, user_id , ingredients, description, thumbnail, likes, created_at, updated_at
 		FROM posts
 		WHERE recipe_type = $1;
 	`
@@ -120,7 +120,7 @@ func (pr *PostRepository) GetByType(ctx context.Context, recipeTYPE string) ([]p
 		var p post.Post
 		var array_ingredients, array_description string
 
-		rows.Scan(&p.Recipe_name, &p.Recipe_type, &p.UserID, &array_ingredients, &array_description, &p.Thumbnail, &p.Likes, &p.CreatedAt, &p.UpdatedAt)
+		rows.Scan(&p.ID, &p.Recipe_name, &p.Recipe_type, &p.UserID, &array_ingredients, &array_description, &p.Thumbnail, &p.Likes, &p.CreatedAt, &p.UpdatedAt)
 
 		p.Ingredients = strings.Split(array_ingredients, "$$$")
 		p.Description = strings.Split(array_description, "$$$")
