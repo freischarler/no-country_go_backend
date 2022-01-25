@@ -11,7 +11,7 @@ import (
 
 func main() {
 	//port := os.Getenv("PORT")
-	serv, err := server.New(os.Getenv("PORT")) //hardcoded
+	serv, err := server.New(os.Getenv("PORT")) //heroku
 	if err != nil {
 		log.Fatal(err)
 	}

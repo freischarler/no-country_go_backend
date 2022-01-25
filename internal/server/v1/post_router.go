@@ -32,7 +32,7 @@ func (pr *PostRouter) Routes() http.Handler {
 
 	r.Get("/{id}", pr.GetOneHandler)
 
-	r.Put("/like/{id}", pr.UpdateLikeHandler)
+	r.Post("/like/{id}", pr.UpdateLikeHandler)
 
 	r.Put("/{id}", pr.UpdateHandler)
 
