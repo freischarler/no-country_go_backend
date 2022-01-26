@@ -7,7 +7,6 @@ import (
 	"github.com/martinpaz/restfulapi/pkg/user"
 )
 
-
 // UserRepository manages the operations with the database that
 // correspond to the user model.
 type UserRepository struct {
@@ -43,7 +42,7 @@ func (ur *UserRepository) GetAll(ctx context.Context) ([]user.User, error) {
 // GetOne returns one user by id.
 func (ur *UserRepository) GetOne(ctx context.Context, id uint) (user.User, error) {
 	q := `
-	SELECT id, first_name, last_name, username, email, picture,
+	SELECT id, password, first_name, last_name, username, email, picture,
 		created_at, updated_at
 		FROM users WHERE id = $1;
 	`
@@ -51,7 +50,7 @@ func (ur *UserRepository) GetOne(ctx context.Context, id uint) (user.User, error
 	row := ur.Data.DB.QueryRowContext(ctx, q, id)
 
 	var u user.User
-	err := row.Scan(&u.ID, &u.FirstName, &u.LastName, &u.Username, &u.Email,
+	err := row.Scan(&u.ID, &u.Password, &u.FirstName, &u.LastName, &u.Username, &u.Email,
 		&u.Picture, &u.CreatedAt, &u.UpdatedAt)
 	if err != nil {
 		return user.User{}, err
